@@ -1,0 +1,102 @@
+1. Multiply
+*************
+LHLD 2050
+XCHG
+MOV C,D
+MVI D, 00
+LXI H, 0000
+SKIP: DAD D
+DCR C
+JNZ SKIP
+SHLD 2058
+HLT
+************
+2. Divide
+***********
+LXI H,2050
+MOV B,M
+MVI C,00
+INX H
+MOV A,M
+BACK: CMP B
+JC GO
+SUB B
+INR C
+JMP BACK
+GO: STA 2052
+MOV A,C
+STA 2053
+HLT
+*************
+3. Square root
+*************
+MVI D,01
+MVI E, 01
+LDA 2050
+BACK: SUB D
+JZ GO
+INR D
+INR D
+INR E
+JMP BACK
+GO: MOV A,E
+STA 2055
+HLT
+*************
+4. Largest Array
+*************
+LXI H, 2050
+MOV C,M
+INX H
+MOV B,M
+DCR C
+LOOP: INX H
+MOV A,M      ***
+CMP B
+JC SKIP
+MOV B,A
+SKIP: DCR C
+JNZ LOOP
+LXI H,2058   ***
+MOV M,B      ***
+HLT
+************
+5. Smallest Array
+************
+LXI H,2500
+MOV C,M
+INX H
+MOV A,M
+DCR C
+SKIP: INX H
+CMP M
+JC LOOP
+MOV A,M
+LOOP: DCR C
+JNZ SKIP
+STA 2508
+HLT
+***********
+6. SWAP
+**********
+LDA 2500
+MOV B,A
+LDA 2501
+STA 2500
+MOV A,B
+STA 2501
+HLT
+*********
+7. SUM WITH CARRAY
+*********
+LDA 2050 
+MOV H, A 
+LDA 2051 
+ADD H 
+MOV L, A 
+MVI A, 00 
+ADC A 
+MOV H, A 
+SHLD 2058 
+HLT
+*********
