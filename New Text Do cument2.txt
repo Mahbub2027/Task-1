@@ -1,0 +1,383 @@
+1. 8085 program to add two 16 bit numbers
+LDA 2050
+MOV B, A
+LDA 2052
+ADD B
+STA 2058
+LDA 2051
+MOV B, A
+LDA 2053
+ADC B
+STA 2059
+HLT
+
+
+Observation:
+INPUT:   2050  45;    2051 66;
+               2052 22;     2053 33
+
+2. Addition of 16-bit numbers using 8-bit operation
+LDA 2050
+MOV B,A
+LDA 2052
+ADD B
+STA 2058
+LDA 2051
+MOV B,A
+LDA 2053
+ADC B
+STA 2059
+HLT
+
+Observation:
+INPUT:   2050  45;    2051 66;
+               2052 22;     2053 33
+
+3. Addition of 16-bit numbers using 16-bit operation
+LHLD 2050
+XCHG 
+LHLD 2052
+DAD D
+SHLD 2058
+HLT
+
+Observation:
+
+INPUT:   2050  45;    2051 66;
+               2052 22;     2053 33
+
+4. 8085 program to add two 8 bit numbers
+LDA 2050
+MOV H,A
+LDA 2051
+ADD H
+MOV L,A
+MVI A,00
+ADC A
+MOV H,A
+SHLD 2058
+HLT
+ 
+Observation:
+
+INPUT:   2050  59;             2051 249;
+
+5. 8085 program to subtract two 8 bit numbers
+6. 8085 program to subtract two 8-bit numbers with or without borrow
+MVI C, 00
+LHLD 2500
+MOV A, H
+SUB L
+JNC SKIP 
+INR C
+SKIP: STA 2052
+MOV A,C
+STA 2503
+HLT
+
+Observation:
+
+INPUT:   2500  4;             2501 3;
+
+7. 8085 program to multiply two 8 bit numbers
+LHLD 2050
+XCHG 
+MOV C,D
+MVI D,00
+LXI H, 0000
+SKIP: DAD D
+DCR C
+JNZ SKIP
+SHLD 2056
+HLT
+
+Observation:
+INPUT:     2500  43;             2501 3;
+
+8. 8085 program to swap two 8-bit numbers
+LDA 2500
+MOV B,A
+LDA 2501
+STA 2500
+MOV A,B
+STA 2501
+HLT
+
+Observation:
+INPUT:     2500  8;             2501 5;
+
+9. 8085 program to divide two 8 bit numbers
+LXI H, 2050
+MOV B, M 
+MVI C, 00 
+INX H
+MOV A, M 
+LOOP: CMP B
+JC SKIP
+SUB B 
+INR C 
+JMP LOOP
+SKIP: STA 2052 
+MOV A, C 
+STA 2053 
+HLT
+
+Observation:
+
+INPUT:     2050  2;             2051 5;              
+OUTPUT:  2052 1;              20532
+
+10. 8085 program to find square root of a number
+MVI D, 01
+MVI E, 01
+LDA 2050
+LOOP: SUB D
+JZ SKIP
+INR D
+INR D
+INR E
+JMP LOOP
+SKIP: MOV A,E
+STA 2055
+HLT
+
+Observation:
+
+INPUT:     2050  9;             
+               
+OUTPUT:  2055 3;              
+
+11. 8085 program to find maximum of two 8 bit numbers
+LDA 2050
+MOV B,A
+LDA 2051
+CMP B
+JNC SKIP
+MOV A,B
+SKIP: STA 2055
+HLT
+
+Observation:
+INPUT:     2050  15;        205125                            
+OUTPUT:  2055 25;              
+
+12. 8085 program to find minimum of two 8 bit numbers
+13. 8085 program to find largest number of an array data
+LXI H, 2050
+MOV C,M
+INX H
+MOV B,M
+DCR C
+LOOP: INX H
+MOV A,M      ***
+CMP B
+JC SKIP
+MOV B,A
+SKIP: DCR C
+JNZ LOOP
+LXI H,2058   ***
+MOV M,B      ***
+HLT
+14. 8085 program to find smallest number of an array data
+LXI H,2500
+MOV C,M
+INX H
+MOV A,M
+DCR C
+SKIP: INX H
+CMP M
+JC LOOP
+MOV A,M
+LOOP: DCR C
+JNZ SKIP
+STA 2508
+HLT
+
+Observation:
+
+INPUT:     25006; 	25012; 	25027;	25033; 	
+   25045; 	25058;            25064; 	25079;          
+               
+OUTPUT:  2059 2;              
+
+15. 8085 program to arrange an array of data in Ascending order
+LXI H, 4200H
+MOV C,M
+DCR C
+REPEAT: MOV D,C
+LXI H, 4201
+LOOP: MOV A,M
+INX H
+CMP M
+JC SKIP
+MOV B,M
+MOV M,A
+DCX H
+MOV M,B
+INX H
+SKIP: DCR D
+JNZ LOOP
+DCR C
+JNZ REPEAT 
+HLT
+
+Observation:
+INPUT:     42005; 	42015; 	42024;	42034; 	
+   42042; 	42051;                
+OUTPUT:  42011; 	42022;	42033; 	
+   42044; 	42055; 
+
+16. 8085 program to arrange an array of data in descending order
+17. Square of a number using lookup table
+MVI D,01
+MVI E, 01
+LDA 2050
+BACK: SUB D
+JZ GO
+INR D
+INR D
+INR E
+JMP BACK
+GO: MOV A,E
+STA 2055
+HLT
+18. 8085 program to add three 16 bit numbers stored in registers
+LHLD 2000
+MOV C,L
+MOV B,H
+LHLD 2002
+XCHG
+LHLD 2004
+DAD D
+MOV D,B
+MOV E,C
+DAD D
+XCHG 
+HLT
+
+Observation:
+INPUT:     20005;   20012;   2002 12; 200321; 200421; 2005 33
+OUTPUT:  2008 46;   2009 38
+
+19. 8085 program to find 1’s and 2’s complement of 8-bit number
+LDA 3000
+CMA
+STA 3001
+ADI 01
+STA 3002
+HLT
+
+Observation:
+INPUT:     30005; 	               
+OUTPUT:  3001250; 	3002251;
+
+20. 8085 program to find 1’s and 2’s complement of 16-bit number
+21. Write an assembly language program to solve this equation 
+(a*b)+(c*d) result will be store in location 2008H location. Where
+a=1,b=2,c=3,d=4
+LDA 2000 
+MOV B,A
+LDA 2001
+MOV D,A
+MVI A,00
+L1: ADD B
+DCR D
+JNZ L1
+MOV C,A
+LDA 2002 
+MOV B,A
+LDA 2003 
+MOV D,A
+MVI A,00
+L2: ADD B 
+DCR D
+JNZ L2
+ADD C 
+STA 2008 
+HLT
+
+Observation:
+INPUT:  20001; 	20012; 	20023; 	20034
+OUTPUT: 2008 14
+
+22. 8085 program to the factorial of a number.
+LDA 2000
+MOV B,A
+MVI D,01H
+LOOP1: CALL MULT
+DCR B
+JNZ LOOP1
+STA 2001
+HLT
+
+MULT: MOV E,B
+MVI A,00
+LOOP2: ADD D
+DCR E
+JNZ LOOP2
+MOV D,A
+RET
+Observation:
+INPUT:  2000 4;
+OUTPUT: 200124
+
+23. Calculate the sum of a series of even numbers
+LDA 2500
+MOV C, A 
+MVI B, 00H 
+LXI H, 2501
+BACK: MOV A, M 
+ANI 01H 
+JNZ SKIP 
+MOV A, B 
+ADD M 
+MOV B, A 
+SKIP: INX H 
+DCR C 
+JNZ BACK 
+MOV A, B 
+STA 2506
+HLT
+
+Observation:
+INPUT:    25004;	 25012; 	25023;	 25034; 	25031
+OUTPUT: 2506 6;
+
+24.Calculate the sum of a series of odd numbers
+25. 8085 program to count total even numbers in series of 10 numbers
+26. 8085 program to count total odd numbers in series of 10 numbers
+LXI H,2000
+MVI C,0AH 
+MVI B, 00H 
+LOOP: MOV A,M 
+ANI 01H
+JNZ SKIP  
+INR B 
+SKIP: INX H 
+DCR C 
+JNZ LOOP 
+MOV A, B 
+STA 2010
+HLT
+
+Observation:
+INPUT: 	20002; 	20011; 	20024; 	20033; 	20045;
+20056; 	20067;	20077;  	20088; 	20099
+
+27. 8085 program to generate Fibonacci series
+LXI H, 3050	
+MVI C, 08
+MVI B, 00	
+MVI D, 01	
+MOV M, B	
+INX H	
+MOV M, D	
+SKIP:	MOV A, B	
+ADD D	
+MOV B, D	
+MOV D, A	
+INX H	
+MOV M, A	
+DCR C	
+JNZ SKIP	
+HLT
