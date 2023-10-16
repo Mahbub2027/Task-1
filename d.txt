@@ -1,0 +1,33 @@
+#Unit
+x= [1,1,1,1]
+n= [0,1,2,3]
+figure(1)
+stem(n,x)
+
+#Signum
+x = [1,-2,4,5]
+n= [0,1,2,3]
+figure(1);
+stem(n,x)
+
+#Exponential
+n= 100:100;
+alpha = 0.9;
+xn = alpha.^n;
+figure(4);
+stem(n,xn)
+
+#Sign function
+a=2;
+f=3;
+t=0:0.1:1;
+xt= a*sin (2*pi*f*t);
+figure(1)
+stem(t,xt)
+
+#Sign wave
+f=3;
+t=0:0.01:1;
+xt= sin (2*pi*f*t);
+figure(1)
+plot(t,xt)
