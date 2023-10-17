@@ -17,7 +17,18 @@ xn = alpha.^n;
 figure(4);
 stem(n,xn)
 
-#Sign function
+#ramp 
+t= -10:10
+u= [zeros(1,10),ones(1,11)]
+r = t.*u;
+plot(t,r)
+
+#Parabolic
+t=-10:10
+pr= .5*(t.^2)
+plot(t,pr)
+
+#Sign function/ sinosoidal
 a=2;
 f=3;
 t=0:0.1:1;
